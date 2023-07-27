@@ -1,17 +1,23 @@
 import argparse
-from core import Generator
 from enum import Enum
+
+from core.generator.generate_usecase import Generator
+
 
 class OutputLang(Enum):
     PYTHON = "python"
     GO = "go"
     TYPESCRIPT = "typescript"
 
+
 class Commands(Enum):
     GENERATE = "generate"
 
+
 def parse_args() -> argparse.Namespace:
-    parser: argparse.ArgumentParser = argparse.ArgumentParser(description="Open Code Bridge")
+    parser: argparse.ArgumentParser = argparse.ArgumentParser(
+        description="Open Code Bridge"
+    )
     parser.add_argument(
         "openapi",
         type=str,
@@ -33,14 +39,9 @@ def parse_args() -> argparse.Namespace:
     )
     return parser.parse_args()
 
+
 def cli():
     args: argparse.Namespace = parse_args()
     if args.openapi:
         generator = Generator(args.language, args.openapi, args.output)
         generator.execute()
-
-
-
-
-
-
